@@ -623,7 +623,7 @@ if (isset($_GET['embed']) && $_GET['embed'] == '1') {
           <div class="brand">
             <div class="bIcon">B</div>
             <div class="brandText">
-              <strong>Busineger</strong>
+              <strong>Busineger - test</strong>
               <span>Unlock prompts. Start growing.</span>
             </div>
           </div>
