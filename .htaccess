@@ -1,0 +1,85 @@
+# ===============================
+# Busineger - .htaccess
+# ===============================
+
+# 1) Turn on rewrite
+RewriteEngine On
+
+# 2) Prevent directory listing
+Options -Indexes
+
+# 3) Default home
+DirectoryIndex index.php
+
+# --------------------------------
+# SECURITY: Block sensitive files
+# --------------------------------
+<FilesMatch "(^\.env$|^\.htaccess$|composer\.(json|lock)$|phpunit\.xml$|debug\.log$|.*\.log$)">
+  Require all denied
+</FilesMatch>
+
+# Block SQL dumps / backups / zip
+<FilesMatch ".*\.(sql|zip|rar|7z|tar|gz|bak|old)$">
+  Require all denied
+</FilesMatch>
+
+# --------------------------------
+# SECURITY: Block private folders
+# --------------------------------
+RewriteRule ^vendor/ - [F,L]
+RewriteRule ^backend/ - [F,L]
+
+# If your admin folder should be protected by login anyway,
+# keep it allowed; but block direct access to admin API endpoints:
+RewriteRule ^admin/api/ - [F,L]
+
+# --------------------------------
+# CLEAN URLS (Optional)
+# If you want /login instead of /mandilogin.php
+# --------------------------------
+# HOME
+RewriteRule ^$ index.php [L]
+
+# AUTH ROUTES
+RewriteRule ^login/?$ mandilogin.php [L]
+RewriteRule ^register/?$ mandiresgistration.php [L]
+RewriteRule ^forgot/?$ forgotpassword.php [L]
+RewriteRule ^otp/?$ otpconfirm.php [L]
+RewriteRule ^logout/?$ logout.php [L]
+
+# MAIN APP
+RewriteRule ^app/?$ newchat.php [L]
+
+# PAYMENT ROUTES (optional)
+RewriteRule ^pay/?$ mandipayment.php [L]
+RewriteRule ^payment-success/?$ payment-success.php [L]
+RewriteRule ^cashfree-return/?$ cashfree_return.php [L]
+
+# --------------------------------
+# PERFORMANCE: Browser caching
+# --------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 day"
+  ExpiresByType text/css "access plus 30 days"
+  ExpiresByType application/javascript "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 90 days"
+  ExpiresByType image/png "access plus 90 days"
+  ExpiresByType image/webp "access plus 90 days"
+  ExpiresByType image/svg+xml "access plus 90 days"
+  ExpiresByType font/woff2 "access plus 180 days"
+</IfModule>
+
+# Optional gzip compression (if enabled)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json
+</IfModule>
+
+
+
+
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW ERRORPAGEID:eg1ygKl9HV
+ErrorDocument 404 /404.html
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE eg1ygKl9HV:ERRORPAGEID
+
