@@ -21,7 +21,7 @@
 </head>
 <body>
   <div>
-    <h1>🚀 Busineger</h1>
+    <h1>🚀 Busineger test</h1>
     <p>We are building something powerful for businesses.</p>
     <p><b>Launching Soon</b></p>
   </div>
