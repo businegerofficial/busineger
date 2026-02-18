@@ -1,7 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
-require_once './backend/db.php'; // Include your database connection file
-require_once "./backend/mail.php";
+require_once __DIR__ . '/../app/backend/db.php'; // Include your database connection file
+require_once __DIR__ . "/../app/backend/mail.php";
 
 session_start(); // ✅ needed because you use $_SESSION below
 $embed = (isset($_GET['embed']) && $_GET['embed'] == '1') ? '1' : '';

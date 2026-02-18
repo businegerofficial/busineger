@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./backend/db.php');
+require __DIR__ . '/../app/backend/db.php';
 
 if (isset($_GET['from_cart']) && $_GET['from_cart'] == '1') {
   $_SESSION['from_cart'] = true;
@@ -623,7 +623,7 @@ if (isset($_GET['embed']) && $_GET['embed'] == '1') {
           <div class="brand">
             <div class="bIcon">B</div>
             <div class="brandText">
-              <strong>Busineger</strong>
+              <strong>Busineger TEST</strong>
               <span>Unlock prompts. Start growing.</span>
             </div>
           </div>

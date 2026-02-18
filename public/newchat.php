@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./backend/db.php');
+require __DIR__ . '/../app/backend/db.php';
 
 /* ---------- Auth guard + user name / initial ---------- */
 $isLoggedIn = isset($_SESSION['user']) && is_array($_SESSION['user']);
