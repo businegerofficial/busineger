@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./backend/db.php');
+require __DIR__ . '/../app/backend/db.php');
 
 // ✅ Validate: order ID from Cashfree & user session
 if (!isset($_GET['order_id']) || !isset($_SESSION['user']['user_id'])) {

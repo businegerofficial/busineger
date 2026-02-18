@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./backend/db.php');
+require __DIR__ . '/../app/backend/db.php');
 
 /**
  * Cashfree return page.

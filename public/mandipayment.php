@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./backend/db.php');
+require __DIR__ . '/../app/backend/db.php');
 
 // Check if user is logged in
 if (!isset($_SESSION['user'])) {

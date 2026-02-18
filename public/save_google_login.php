@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./backend/db.php');
+require __DIR__ . '/../app/backend/db.php');
 
 $data = json_decode(file_get_contents("php://input"), true);
 

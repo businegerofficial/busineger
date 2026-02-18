@@ -1,5 +1,5 @@
 <?php 
-require_once 'config.php';
+require_once __DIR__ . '/../config/config.php';
 
 $embed = (isset($_GET['embed']) && $_GET['embed'] == '1') ? '1' : '0';
 $redirect = $_GET['redirect'] ?? 'newchat.php';

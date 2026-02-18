@@ -6,7 +6,7 @@
  */
 
 session_start();
-require('./backend/db.php');
+require __DIR__ . '/../app/backend/db.php');
 
 header('Content-Type: application/json');
 
