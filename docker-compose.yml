@@ -1,0 +1,73 @@
+services:
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: busineger_nginx
+    depends_on:
+      - php
+    ports:
+      - "8080:80"
+    volumes:
+      # Your code (read-only is safer)
+      - ./:/var/www/html:ro
+
+      # Nginx vhost
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - busineger_net
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: busineger_php
+    volumes:
+      - ./:/var/www/html
+      # Custom PHP ini + FPM pool
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/99-custom.ini:ro
+      - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
+    environment:
+      # Use these in your db.php/config.php
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: busineger
+      DB_USER: busineger_user
+      DB_PASS: busineger_pass
+    networks:
+      - busineger_net
+
+  db:
+    image: mysql:8.0
+    container_name: busineger_db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: busineger
+      MYSQL_USER: busineger_user
+      MYSQL_PASSWORD: busineger_pass
+      MYSQL_ROOT_PASSWORD: rootpass
+      TZ: Europe/Berlin
+    ports:
+      - "3307:3306"
+    volumes:
+      - busineger_db_data:/var/lib/mysql
+    networks:
+      - busineger_net
+
+  # Optional (remove if not needed)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: busineger_phpmyadmin
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - "8081:80"
+    networks:
+      - busineger_net
+
+networks:
+  busineger_net:
+
+volumes:
+  busineger_db_data:
