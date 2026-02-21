@@ -1,5 +1,5 @@
 <?php
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../app/backend/db.php'; // Include your database connection file
 require_once __DIR__ . "/../app/backend/mail.php";
 
