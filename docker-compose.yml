@@ -29,9 +29,9 @@ services:
       # Use these in your db.php/config.php
       DB_HOST: db
       DB_PORT: 3306
-      DB_NAME: busineger
+      DB_NAME: busineger_db
       DB_USER: busineger_user
-      DB_PASS: busineger_pass
+      DB_PASS: Aimandi@0007
     networks:
       - busineger_net
 
@@ -40,15 +40,16 @@ services:
     container_name: busineger_db
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_DATABASE: busineger
+      MYSQL_DATABASE: busineger_db
       MYSQL_USER: busineger_user
-      MYSQL_PASSWORD: busineger_pass
+      MYSQL_PASSWORD: Aimandi@0007
       MYSQL_ROOT_PASSWORD: rootpass
       TZ: Europe/Berlin
     ports:
       - "3307:3306"
     volumes:
       - busineger_db_data:/var/lib/mysql
+      - ./docker/db/init:/docker-entrypoint-initdb.d:ro
     networks:
       - busineger_net
 
