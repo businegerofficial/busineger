@@ -53,7 +53,7 @@ function updatePassword($email, $new_password) {
     $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
 
     // Update the password in the database
-    require './backend/db.php';
+    require __DIR__ . '/../app/backend/db.php';
     $stmt = $pdo->prepare("UPDATE users SET password = :password WHERE email = :email");
     $stmt->bindParam(':password', $hashed_password);
     $stmt->bindParam(':email', $email);

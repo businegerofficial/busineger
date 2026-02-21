@@ -2700,7 +2700,7 @@ $unlockedCategories = count($purchasedCats);
     event,
     <?php echo htmlspecialchars(json_encode($fp['label']), ENT_QUOTES, 'UTF-8'); ?>,
     <?php echo (int)$fp['id']; ?>,
-    <?php echo (int)$categoryId; ?>,
+    <?php echo (int)$cat['id']; ?>,
     <?php echo (int)$topic['id']; ?>
   )">
   ✎ Edit
@@ -2711,7 +2711,7 @@ $unlockedCategories = count($purchasedCats);
     event,
     <?php echo htmlspecialchars(json_encode($fp['label']), ENT_QUOTES, 'UTF-8'); ?>,
     <?php echo (int)$fp['id']; ?>,
-    <?php echo (int)$categoryId; ?>,
+    <?php echo (int)$cat['id']; ?>,
     <?php echo (int)$topic['id']; ?>
   )">
   ➤ Send

@@ -536,7 +536,7 @@ if ($redirect === '') $redirect = 'newchat.php';
         </div>
 
         <form id="registration-form" method="POST"
-      action="./backend/registerSave.php?embed=<?php echo $embed; ?>&redirect=<?php echo urlencode($redirect); ?>">
+      action="/registerSave.php?embed=<?php echo $embed; ?>&redirect=<?php echo urlencode($redirect); ?>">
           <div class="field">
             <i class="fa-solid fa-user leftIcon"></i>
             <input type="text" id="name" name="name" placeholder="Enter your name" required />
