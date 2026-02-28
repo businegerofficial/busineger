@@ -4,6 +4,7 @@ services:
     container_name: busineger_nginx
     depends_on:
       - php
+      - api
     ports:
       - "8080:80"
     volumes:
@@ -52,6 +53,11 @@ services:
       - ./docker/db/init:/docker-entrypoint-initdb.d:ro
     networks:
       - busineger_net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -p${MYSQL_ROOT_PASSWORD} --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   # Optional (remove if not needed)
   phpmyadmin:
@@ -64,6 +70,22 @@ services:
       PMA_PORT: 3306
     ports:
       - "8081:80"
+    networks:
+      - busineger_net
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile
+    container_name: busineger_api
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "5050:5050"
     networks:
       - busineger_net
 
