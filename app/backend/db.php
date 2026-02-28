@@ -1,13 +1,18 @@
 <?php
-$host = '127.0.0.1';
-$dbname = 'busineger_db';
-$username = 'busineger_user';
-$password = 'Aimandi@0007';
+$host = getenv('DB_HOST') ?: 'db';        // <-- default to db for Docker
+$port = getenv('DB_PORT') ?: '3306';
+$dbname = getenv('DB_NAME') ?: 'busineger_db';
+$username = getenv('DB_USER') ?: 'busineger_user';
+$password = getenv('DB_PASS') ?: 'Aimandi@0007';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4";
+    $pdo = new PDO($dsn, $username, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ]);
 } catch (PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
+    die("<!-- Connection failed: " . $e->getMessage() . " -->");
 }
 ?>

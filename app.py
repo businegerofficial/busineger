@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify
 import requests
 import markdown as md
 import mysql.connector
+from dotenv import load_dotenv
 from datetime import datetime, date
 
 # ----------------------------
@@ -100,7 +101,7 @@ app = Flask(__name__)
 # ----------------------------
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("aimandi")
-
+load_dotenv()
 # ----------------------------
 # Secrets (env)
 # ----------------------------
@@ -112,11 +113,13 @@ if not OPENROUTER_API_KEY:
 # DB connection (MySQL)
 # ❗️DO NOT TOUCH – AS REQUESTED
 # ----------------------------
+
 db = mysql.connector.connect(
-    host="srv875.hstgr.io",
-    user="u957188971_aipm",
-    password="AIpm@1234",
-    database="u957188971_aipromptmandi",
+    host=os.getenv("DB_HOST", "db"),
+    port=int(os.getenv("DB_PORT", "3306")),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASS"),
+    database=os.getenv("DB_NAME"),
 )
 
 def _db():
